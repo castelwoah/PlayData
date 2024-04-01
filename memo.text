@@ -19,6 +19,7 @@
 			§ mySQL
 
 
+
 <수업>
 운영체제기반 역사
 리눅스의 아버지 = 리눅스 토발즈
@@ -30,7 +31,6 @@
 우분투 리눅스
 딥러닝 직무에서 많이 사용함
 
-
 윈도우 + r
 appwiz.cpl 검색
 Hyper-v
@@ -40,6 +40,31 @@ Port
 데이터가 왔다갔다 하는 곳
 포트는 다른 프로세스가 사용 중이면 사용 불가
 
+ubuntu 22.04.3 LTS 다운로드
+(실행후 에러가 뜰경우 커널 업데이트 실행)
+
+python 설명
+버전 설명 python 메인버젼.마이너버젼(업데이트).보안패치
+사용버젼 = python 3.10.12
+인터프리터 언어(소스코드가 곧 명령어)
+
+python 분석 관련 패키지
+numpy(선형대수 패키지) + scipy = tensorflow
+jupyter
+scikt-learn
+deep learning
+	- google tensorflow
+ 	- meta pytorch
+pandas(데이터 전처리에 사용)
 
 
+코딩, 통계, 도메인 세가지를 알아야 한다
+
+
+# workspace 생성
+mkdir workspace
+
+
+우분투를 분석 서버라고 생각하고 진행할 것이다.
+그때 필요한 확장팩 WSL 다운로드
 
