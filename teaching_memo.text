@@ -119,7 +119,6 @@ data = r.json()
 
 
 
-
 2024.04.02
 
 DNS 
@@ -274,3 +273,57 @@ for x in list_data:
 def tmp(x):
     return int(x) ** 2
 list(map(tmp, list_data))
+
+
+url = "https://www.genie.co.kr/chart/top200"
+
+
+head = {'User-Agent':
+'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0'}
+
+r = requests.get(url, headers=head)
+
+r.text 
+
+
+from bs4 import BeautifulSoup
+bs = BeautifulSoup(r.text)
+
+
+
+for idx, x in enumerate(bs.findAll("td",class_='info')):
+    title = x.find("a", class_="title ellipsis").text.strip()
+    artist = x.find("a", class_="artist ellipsis").text
+    print(f"{idx+1}위 -> {title} - {artist}")
+
+
+lyric = "https://www.genie.co.kr/detail/songInfo?xgnm={}"
+for idx, x in enumerate(bs.findAll("td",class_='info')):
+    title = x.find("a", class_="title ellipsis").text.strip()
+    artist = x.find("a", class_="artist ellipsis").text
+    id_ = x.find("a", class_="title ellipsis")['onclick'].split("'")[1]
+    print(f"{idx+1}위 -> {title} - {artist} ")
+    print(lyric.format(id_))
+
+
+r2 = requests.get("https://www.genie.co.kr/detail/songInfo?xgnm=105544013", headers=head)
+
+bs2 = BeautifulSoup(r2.text)
+# 상대경로 -> ./ -> 현재 폴더 
+# ../ -> 현재 경로에서 상위 폴더 
+# 절대경로 
+f = open('./a.txt', "w", encoding='utf-8')
+f.write(bs2.find("pre", id="pLyrics").text.strip())
+f.close()
+
+target = "./lyric"
+if not os.path.isdir(target):
+    os.mkdir(target)
+1
+
+# 50위까지 노래 가사 저장하기 
+저장 위치 -> ./lyric
+# 파일 형식 -> 가수_제목.txt 
+
+
+
