@@ -133,5 +133,10 @@ c.ServerApp.notebook_dir = ""
 :wq 
 
 
-
+크롤링
+restful api
+web	- get
+	- post
+ module	- requests
+ 
 
