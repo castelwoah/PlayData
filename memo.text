@@ -18,8 +18,6 @@
 		○ DB
 			§ mySQL
 
-
-
 <수업>
 운영체제기반 역사
 리눅스의 아버지 = 리눅스 토발즈
@@ -68,7 +66,6 @@ mkdir workspace
 인덱스가 있는 데이터를
 sequence형 데이터
 
-
 자료구조 - list
 - 원소 - 객체혼합가능
 - sequence 
@@ -85,3 +82,14 @@ jupyter-notebook 실행
 터미널에 sudo apt install jupyter-core
 명령어 jupyter-notebook 로 주피터 노트북 실행(링크 클릭)
 
+TCP / IP 
+데이터를 주고받을때 사용하는 프로토콜 = TCP
+ip address
+protocoll = 약속
+
+ip 도 port 처럼 유일해야함 겹치면 안된다.
+ip 주소를 도메인 이름으로 연결해주는것이 DNS(DOMAIN NAME SERVER)
+
+주피터 서버 다시 여는것
+jupyter notebook --generate-config
+Writing default config to: /home/swp/.jupyter/jupyter_notebook_config.py
