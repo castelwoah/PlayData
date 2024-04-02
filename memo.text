@@ -77,3 +77,11 @@ sequence형 데이터
  	- []
 
 import request
+
+
+---
+<2일차>
+jupyter-notebook 실행
+터미널에 sudo apt install jupyter-core
+명령어 jupyter-notebook 로 주피터 노트북 실행(링크 클릭)
+
