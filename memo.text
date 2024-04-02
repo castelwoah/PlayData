@@ -111,3 +111,27 @@ q : 강제 종료
 w : 쓰기
 wq : 쓰고나가기
 
+주피터노트북 비밀번호 설정법
+from jupyter_server.auth import passwd
+passwd()
+psw1
+'비밀번호 토큰 확인'
+
+vim jupyter_notebook_config.py
+
+
+# password 키워드  찾기 
+:/password 
+c.ServerApp.password = ""
+n : 다음 찾기 
+N : 이전 찾기 
+
+:/notebook_dir 
+c.ServerApp.notebook_dir = ""
+
+# 쓰고 나가기 
+:wq 
+
+
+
+
