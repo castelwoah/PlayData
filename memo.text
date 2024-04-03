@@ -169,5 +169,48 @@ pip install pip install virtualenv
 python3 -m virtualenv venv 
 (python으로 메세지 보내줘 virtualenv에 venv이름으로)
 
+# pip 설치 방법
+pip install pandas
+pip install pandas==1.2.0
+pip uninstall pandas 
+
+# pip 버전 확인
+pip list 
+pip freeze 
+
+# 가상환경 다른 사람한테 줄때
+pip list --format=freeze > requirements.txt
+pip list -format=freeze > requirements.txt
+
+# requirements.txt 파일 일괄설치
+pip install -r requirements.txt
+
+# nohup -> session 유지 
+# & -> background 
+nohup jupyter-notebook &
+
+
+ajax
+비동기방식으로 
+
+
+<미니과제>
+# 아래 주소에서 api를 찾아서 데이터를 가져오고 
+# kospi 만 
+# 네이버 주식 api를 이용해서 
+# stock폴더를 만들고 그 안에 종목이름.csv 
+# 네이버에서 데이터 가져와서 저장하는 기능을 사용자 함수로 만들것
+def get_naver_stock(code, start_date, end_date):
+    """
+    code -> 종목 코드 넣어 
+    start_date -> 시작 날짜 
+    end_date -> 끝나는 날짜
+    """
+    pass
+
+http://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020201
+
+error : 모든 파일에 동일한 데이터 저장됨
+해결 : get_naver_stock()에서 pass 지우고 리턴을 만들어준다
 
 
