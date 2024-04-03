@@ -415,3 +415,18 @@ swp@LAPTOP-BTRBRSBB:~/workspace$ ip a
        valid_lft forever preferred_lft forever
     inet6 fe80::d670:bd3b:dfc0:fbbf/64 scope link dynamic 
        valid_lft forever preferred_lft forever
+
+
+# 가상머신 설치
+swp@LAPTOP-BTRBRSBB:~/workspace/project$ pip install virtualenv
+
+
+(venv) swp@LAPTOP-BTRBRSBB:~/workspace/project$ cat requirements.txt
+numpy==1.26.4
+pandas==1.2.0
+pip==24.0
+python-dateutil==2.9.0.post0
+pytz==2024.1
+setuptools==69.1.0
+six==1.16.0
+wheel==0.42.0
