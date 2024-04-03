@@ -163,3 +163,11 @@ ps -ef | grep python
 openssh-server 설치
 명령어: sudo apt install openssh-server
 
+# 가상환경 만들기
+pip install pip install virtualenv 
+(설치)
+python3 -m virtualenv venv 
+(python으로 메세지 보내줘 virtualenv에 venv이름으로)
+
+
+
