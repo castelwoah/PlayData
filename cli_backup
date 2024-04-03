@@ -284,3 +284,134 @@ pip        24.0
 setuptools 69.1.0
 wheel      0.42.0
 (venv) swp@LAPTOP-BTRBRSBB:~/workspace/project$
+
+
+swp@LAPTOP-BTRBRSBB:~/workspace$ sudo apt install openssh-server
+E: dpkg was interrupted, you must manually run 'sudo dpkg --configure -a' to correct the problem. 
+swp@LAPTOP-BTRBRSBB:~/workspace$ sudo dpkg --configure -a
+Setting up python3-entrypoints (0.4-1) ...
+Setting up python3-attr (21.2.0-1) ...
+Setting up python3-tornado (6.1.0-3build1) ...
+Setting up openssh-server (1:8.9p1-3ubuntu0.6) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (Dialog frontend requires a screen at least 13 lines tall and 31 columns wide.)
+debconf: falling back to frontend: Readline
+
+Creating config file /etc/ssh/sshd_config with new version
+Creating SSH2 RSA key; this may take some time ...
+3072 SHA256:m7K5/9qtPHpioa+J+Hrlxf+JeX/pa+jilb8s/4ti0Ho root@LAPTOP-BTRBRSBB (RSA)
+Creating SSH2 ECDSA key; this may take some time ...
+256 SHA256:sYbyFwO8VVMbvDMRXYl67SyEhPylTJvWYZqPJQR4s5o root@LAPTOP-BTRBRSBB (ECDSA)
+Creating SSH2 ED25519 key; this may take some time ...
+256 SHA256:AJPXy4mHik4IA6cyEV5DV+qgvHlobJMgLFxKfoIY69I root@LAPTOP-BTRBRSBB (ED25519)
+invoke-rc.d: could not determine current runlevel
+Created symlink /etc/systemd/system/sshd.service → /lib/systemd/system/ssh.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/ssh.service → /lib/systemd/system/ssh.service.
+Setting up python3-py (1.10.0-1) ...
+Setting up python3-defusedxml (0.7.1-1) ...
+Setting up libpgm-5.3-0:amd64 (5.3.128~dfsg-2) ...
+dpkg: dependency problems prevent configuration of blt:
+ blt depends on tk8.6-blt2.5 (= 2.5.3+dfsg-4.1build2); however:
+  Package tk8.6-blt2.5 is not installed.
+
+dpkg: error processing package blt (--configure):
+ dependency problems - leaving unconfigured
+Setting up libnorm1:amd64 (1.5.9+dfsg-2) ...
+Setting up python3-pandocfilters (1.5.0-1) ...
+Setting up python3-markupsafe (2.0.1-2build1) ...
+Setting up python3-webencodings (0.5.1-4) ...
+Setting up python3-tz (2022.1-1ubuntu0.22.04.1) ...
+Setting up python-babel-localedata (2.8.0+dfsg.1-7) ...
+Setting up python3-pygments (2.11.2+dfsg-2) ...
+Setting up python3-packaging (21.3-1) ...
+Setting up python3-wcwidth (0.2.5+dfsg1-1) ...
+Setting up python3-testpath (0.5.0+dfsg-1) ...
+dpkg: dependency problems prevent configuration of python3-ipython:
+ python3-ipython depends on python3-jedi (>= 0.16); however:
+  Package python3-jedi is not installed.
+ python3-ipython depends on python3-matplotlib-inline; however:
+  Package python3-matplotlib-inline is not installed.
+
+dpkg: error processing package python3-ipython (--configure):
+ dependency problems - leaving unconfigured
+Setting up python3-nest-asyncio (1.5.4-1) ...
+dpkg: dependency problems prevent configuration of python3-ipykernel:
+ python3-ipykernel depends on python3-ipython (>= 5.8.0-2~); however:
+  Package python3-ipython is not configured yet.
+ python3-ipykernel depends on python3-matplotlib-inline; however:
+  Package python3-matplotlib-inline is not installed.
+
+dpkg: error processing package python3-ipykernel (--configure):
+ dependency problems - leaving unconfigured
+Setting up python3-html5lib (1.1-3) ...
+Setting up python3-pickleshare (0.7.5-5) ...
+Setting up python3-pyrsistent:amd64 (0.18.1-1build1) ...
+Setting up python3-dateutil (2.8.1-6) ...
+Setting up python3-ptyprocess (0.7.0-3) ...
+Setting up python3-prompt-toolkit (3.0.28-1) ...
+Setting up libzmq5:amd64 (4.3.4-2) ...
+Setting up python3-babel (2.8.0+dfsg.1-7) ...
+update-alternatives: using /usr/bin/pybabel-python3 to provide /usr/bin/pybabel (pybabel) in auto mode
+Setting up python3-bleach (4.1.0-1) ...
+Setting up python3-jupyterlab-pygments (0.1.2-8) ...
+Setting up python3-jinja2 (3.0.3-1ubuntu0.1) ...
+Setting up python3-jsonschema (3.2.0-0ubuntu2) ...
+Setting up python3-pexpect (4.8.0-2ubuntu1) ...
+Setting up python3-zmq (22.3.0-1build1) ...
+Setting up python3-jupyter-client (7.1.2-1) ...
+Setting up python3-nbformat (5.1.3-1) ...
+Setting up python3-nbclient (0.5.6-2) ...
+Processing triggers for libc-bin (2.35-0ubuntu3.4) ...
+Errors were encountered while processing:
+ blt
+ python3-ipython
+ python3-ipykernel
+swp@LAPTOP-BTRBRSBB:~/workspace$ sudo apt install openssh-server
+...
+swp@LAPTOP-BTRBRSBB:~/workspace$ sudo service ssh start
+ * Starting OpenBSD Secure Shell server sshd    
+swp@LAPTOP-BTRBRSBB:~/workspace$ sudo service ssh status
+ * sshd is running
+swp@LAPTOP-BTRBRSBB:~/workspace$ ip a
+20: eth0: <> mtu 1500 group default qlen 1
+    link/ether 8c:b0:e9:d8:5f:8a
+    inet 169.254.130.0/16 brd 169.254.255.255 scope global dynamic 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::4876:9c45:aeec:8b70/64 scope link dynamic 
+       valid_lft forever preferred_lft forever
+15: eth1: <> mtu 1500 group default qlen 1
+    link/ether f4:b3:01:23:e6:b3
+    inet 169.254.101.34/16 brd 169.254.255.255 scope global dynamic 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::65cc:e798:f9a4:a639/64 scope link dynamic 
+       valid_lft forever preferred_lft forever
+26: eth2: <BROADCAST,MULTICAST,UP> mtu 1500 group default qlen 1
+    link/ether 00:15:5d:65:29:3c
+    inet 192.168.208.1/20 brd 192.168.223.255 scope global dynamic 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::9786:c39f:c19b:60e/64 scope link dynamic 
+       valid_lft forever preferred_lft forever
+1: lo: <LOOPBACK,UP> mtu 1500 group default qlen 1
+    link/loopback 00:00:00:00:00:00
+    inet 127.0.0.1/8 brd 127.255.255.255 scope global dynamic 
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host dynamic 
+       valid_lft forever preferred_lft forever
+11: wifi0: <BROADCAST,MULTICAST,UP> mtu 1500 group default qlen 1
+    link/ieee802.11 f4:b3:01:23:e6:af
+    inet 192.168.70.9/24 brd 192.168.70.255 scope global dynamic 
+       valid_lft 4870sec preferred_lft 4870sec
+    inet6 fe80::dce9:1c5:155d:8f3/64 scope link dynamic 
+       valid_lft forever preferred_lft forever
+19: wifi1: <> mtu 1500 group default qlen 1
+    link/ieee802.11 f4:b3:01:23:e6:b0
+    inet 169.254.221.180/16 brd 169.254.255.255 scope global dynamic 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::114a:14e3:373d:eca7/64 scope link dynamic 
+       valid_lft forever preferred_lft forever
+16: wifi2: <> mtu 1500 group default qlen 1
+    link/ieee802.11 f6:b3:01:23:e6:af
+    inet 169.254.31.189/16 brd 169.254.255.255 scope global dynamic 
+       valid_lft forever preferred_lft forever
+    inet6 fe80::d670:bd3b:dfc0:fbbf/64 scope link dynamic 
+       valid_lft forever preferred_lft forever
