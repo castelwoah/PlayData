@@ -140,3 +140,26 @@ web	- get
  module	- requests
  
 
+
+
+2024.04.03
+
+# 프로세스 확인 
+ps 
+## 모든 프로세스 확인 
+ps -ef 
+
+## | 
+## grep 
+ps -ef | grep python
+| = 왼쪽의 결과를 오른쪽으로 넘겨줌
+
+
+커널
+- 커널에는 제어하는 장치의 지원 여부 정보, 하드웨어 성능, 하드웨어를 제어하는 코드들이 들어있음
+- 리누스 토발즈는 이를 커널이라고 부르는 리눅스의 핵심을 개발했고, 지금도 업데이트 중이다
+
+
+openssh-server 설치
+명령어: sudo apt install openssh-server
+
