@@ -189,6 +189,13 @@ pip install -r requirements.txt
 # & -> background 
 nohup jupyter-notebook &
 
+# 일반계정 
+nohup jupyter-notebook --ip=0.0.0.0 & 
+
+# root
+nohup jupyter-notebook --allow-root --ip=0.0.0.0 & 
+
+
 
 ajax
 비동기방식으로 
@@ -216,3 +223,42 @@ error : 모든 파일에 동일한 데이터 저장됨
 
 데이터 수집을 위해 사용하는 것이 selenium
 단점: 느리다
+
+selenium 원래 목적: 자동화
+많이 사용하는 분야는 QA
+
+
+
+
+20240404
+ip address 관련 설명
+ip 구조는 
+
+서로 망이다르면 라우터라는 장비를 사용해줘야한다
+명령어: swp@LAPTOP-BTRBRSBB:~$ ping -c 3 8.8.8.8
+
+8.8.8.8 = 구글의 DNS서버
+
+
+# 네트워크 프로그램 설치 
+sudo apt install net-tools 
+
+# port 확인
+sudo netstat -ntlp | grep [포트] 
+
+
+# 실행되고 있는 실행파일의 위치 
+which 
+which google-chrome
+
+pip install webdriver_manager
+
+
+miniconda 설치
+아나콘다로 가상환경 설정 가능
+* 윈도우 powershell에서는 사용 불가
+
+
+
+
+
