@@ -477,3 +477,136 @@ http://data.krx.co.kr/contents/MDC/MDI/mdiLoader/index.cmd?menuId=MDC0201020201
 
 
 
+
+
+2024.04.04
+# 인터넷에 있는 파일 다운로드 받을때 사용 wget 
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+
+
+public ip 
+private ip 
+
+
+
+sudo apt install ./google-chrome-stable_current_amd64.deb -y
+
+
+
+
+# 일반계정 
+nohup jupyter-notebook --ip=0.0.0.0 & 
+
+# root
+nohup jupyter-notebook --allow-root --ip=0.0.0.0 & 
+
+
+# 네트워크 프로그램 설치 
+sudo apt install net-tools 
+
+
+
+# port 
+sudo netstat -ntlp | grep [포트] 
+
+# 실행되고 있는 실행파일의 위치 
+which 
+which google-chrome
+
+
+cd /opt/google/
+
+pip install webdriver_manager
+
+
+
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+driver = webdriver.Chrome(service=Service(ChromeDriverManager(driver_version="123.0.6312.105").install()))
+
+driver.get("https://www.koreabaseball.com/")
+
+from selenium.webdriver.common.by import By
+driver.find_element(By.CSS_SELECTOR, "#lnb > li:nth-child(3) > a").click()
+driver.page_source
+
+
+
+
+import time
+import re
+pattern = re.compile("playerId=([0-9]+)")
+
+select_page = "#cphContents_cphContents_cphContents_ucPager_btnNo{}"
+select_team = "#cphContents_cphContents_cphContents_ddlTeam > option:nth-child({})"
+playid = []
+for x in range(2,12):
+    for_1 = select_team.format(x)
+    driver.find_element(By.CSS_SELECTOR, for_1).click()
+    time.sleep(2)
+    #playid.extend(pattern.findall(driver.page_source))
+    for y in range(1,6):
+        f2 = select_page.format(y)
+        try:
+            driver.find_element(By.CSS_SELECTOR, f2).click()
+            time.sleep(1)
+            playid.extend(pattern.findall(driver.page_source))
+        except Exception as e:
+            print ("page 없음 ")
+        time.sleep(2)
+
+
+
+
+
+import pickle 
+# binary save , load 
+with open("./kbo.pkl", "wb") as f:
+    pickle.dump(playid, f)
+
+
+import pickle
+with open("./kbo.pkl", "rb") as f:
+    abc = pickle.load(f)
+
+
+
+
+
+
+#lnb > li:nth-child(3) > a
+
+
+
+
+https://repo.anaconda.com/miniconda/Miniconda3-latest-Windows-x86_64.exe
+
+
+
+# conda 가상환경 
+conda create --name [이름] python=[버전] 
+
+
+conda install jupyter 
+pip install selenium webdriver_manager
+
+
+
+play_url = "https://www.koreabaseball.com/Record/Player/PitcherDetail/Basic.aspx?playerId={}"
+from bs4 import BeautifulSoup as BS 
+import requests 
+
+
+def get_kbo(id_):
+    kbo_r = requests.get(play_url.format(id_))
+    bs = BS(kbo_r.text)
+    data = {x.text.split(":")[0] : x.text.split(":")[1] for x in bs.find("div", class_= "player_basic").findAll("li")}
+    data['team'] = bs.find("h4", id="h4Team").text
+    return data
+
+
+
+
+
