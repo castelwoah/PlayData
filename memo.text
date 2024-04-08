@@ -262,3 +262,12 @@ miniconda 설치
 
 
 
+20240408
+리눅스 명령어
+swp@LAPTOP-BTRBRSBB:~/workspace/남성$ ls -l | grep ^- | wc -l
+ls : list
+grep : 찾기
+wc : word count
+
+
+
