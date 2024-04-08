@@ -610,3 +610,177 @@ def get_kbo(id_):
 
 
 
+2024.04.05
+
+import requests 
+
+payload = {"ajax": "true",
+"curCd": "",
+"tmpInqStrDt": "2024-04-03",
+"pbldDvCd": "0",
+"pbldSqn": "",
+"hid_key_data": "",
+"inqStrDt": "20240403",
+"inqKindCd": "1",
+"hid_enc_data": "",
+"requestTarget": "searchContentDiv",}
+
+url = "https://www.kebhana.com/cms/rate/wpfxd651_01i_01.do"
+
+r = requests.post(url, data=payload)
+
+hana = pd.read_html(r.text)[0]
+
+
+
+def get_exchange(code_, date_=None):
+    return hana[hana['통화_통화'].str.find(f"{code_}") > -1]
+
+
+
+
+
+def get_exchange(code_="USD", date_=None):
+    """
+     code_ = 통화코드 
+         예) USD 
+     date_ = 예) '2024-01-02'
+    """
+    payload = {"ajax": "true",
+            "curCd": "",
+            "pbldDvCd": "0",
+            "pbldSqn": "",
+            "hid_key_data": "",
+            "inqKindCd": "1",
+            "hid_enc_data": "",
+            "requestTarget": "searchContentDiv",}
+    payload['tmpInqStrDt'] = date_
+    payload['inqStrDt'] = date_.replace("-", "")
+    url = "https://www.kebhana.com/cms/rate/wpfxd651_01i_01.do"
+    r = requests.post(url, data=payload)
+    exchange = pd.read_html(r.text)[0]
+    exchange.columns = ["_".join(x[:2]) for x in exchange.columns]
+    return exchange.loc[exchange['통화_통화'].str.find(f"{code_.upper()}") > -1, '현찰_파실 때'].iloc[0,0]
+
+
+
+----
+from datetime import date, datetime
+import requests 
+import pandas as pd 
+
+def get_exchange(code_="USD", date_=None):
+    """
+     code_ = 통화코드 
+         예) USD 
+     date_ = 예) '2024-01-02'
+    """
+    payload = {"ajax": "true",
+            "curCd": "",
+            "pbldDvCd": "0",
+            "pbldSqn": "",
+            "hid_key_data": "",
+            "inqKindCd": "1",
+            "hid_enc_data": "",
+            "requestTarget": "searchContentDiv",}
+    # 날짜 형식 검사
+    try:
+        datetime.strptime(date_, "%Y-%m-%d")
+    except:
+        print ("값 확인해!!")
+        return -1
+        
+    
+    payload['tmpInqStrDt'] = date_
+    payload['inqStrDt'] = date_.replace("-", "")
+    url = "https://www.kebhana.com/cms/rate/wpfxd651_01i_01.do"
+    r = requests.post(url, data=payload)
+    exchange = pd.read_html(r.text)[0]
+    exchange.columns = ["_".join(x[:2]) for x in exchange.columns]
+    return exchange.loc[exchange['통화_통화'].str.find(f"{code_.upper()}") > -1, '현찰_파실 때'].iloc[0,0]
+
+
+
+
+
+f = open("./file.txt", "w", encoding="utf-8")
+for roots, dirs, files in os.walk("/home/gen2"):
+    for file in files:
+        f.write(f"{roots}/{file}\n")
+f.close()
+
+
+
+
+# dict comprehension 
+code_master = {x1.split()[0] : x1.split()[1] for x1 in hana['통화_통화']}
+
+
+
+kbo2 = kbo_df[kbo_df.연봉.str.find("달러") > -1].copy()
+
+
+
+# warning 숨기기 
+import warnings
+warnings.filterwarnings(action='ignore')
+
+
+exchange =  get_exchange('usd', '2024-01-02')
+
+kbo2['연봉'] = kbo2.연봉.apply(lambda x : int(x[:-2]) * exchange) / 10000
+
+
+
+kbo3 = kbo_df[~kbo_df.연봉.str.find("달러") > -1].copy()
+
+
+# and -> % 
+# or -> | 
+# not -> ~
+
+
+
+kbo4 = kbo3[~kbo3.연봉.apply(lambda x : len(x) < 3)].copy()
+
+kbo4.연봉 = kbo4.연봉.apply(lambda x : int(x[:-2]))
+
+
+final = pd.concat([kbo2, kbo4])
+
+
+final.groupby(['team'])[['연봉']].mean().sort_values(by=['연봉'], ascending=False)
+
+
+
+final.groupby(['team'])[['연봉']].agg(['mean', 'median', 'var'])
+
+
+
+
+공개키 (public key) 
+개인키(private key)
+
+
+sudo apt install unzip 
+unzip ./이름_생년_성별_10000.zip -d ./data
+
+
+파일 분리하여 저장 
+남성 -> 남성 폴더에 저장 
+여성 -> 여성 폴더에 저장 
+
+'1', '3' 
+'2', '4' 
+
+남성, 여성 컬럼으로 DataFrame으로 
+.to_csv("./report.csv", index=False, encoding='utf-8-sig')
+
+
+# 파일 복사 
+import shutil
+shutil.move("./result.csv", "/home/gen2")
+
+
+
+
