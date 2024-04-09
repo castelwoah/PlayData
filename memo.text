@@ -258,6 +258,9 @@ miniconda 설치
 아나콘다로 가상환경 설정 가능
 * 윈도우 powershell에서는 사용 불가
 
+miniconda 실행 명령어
+conda activate [서버이름] # 가상환경 활성화
+conda dectivate [서버이름] # 가상환경 비활성화
 
 
 
