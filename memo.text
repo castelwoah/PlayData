@@ -312,5 +312,86 @@ class 내부에서 구현된 함수는 method라고 한다.
 파이썬의 모든것들은 정확히 말하면 인스턴스객체이다.
 
 
+의도적으로 에어를 출력하는 코드
+raise ValueError('price must be positive')
+의도적으로 에러를 만드는 이유: 파이썬 버전이 맞지 않거나 제작자의도와 달리 사용할때
+
+같은 이름의 메서드를 다시 정의 하는것: 오버라이딩
+
+파이썬에서는 다중상속이 가능하다.
+
+모델 서빙: 장고, 플라스크을 사용하여 
+
+
+<framework>
+프레임워크: 이미 기능을 할 수 있도록 만들어놓은 프로그램
+
+
+
+Web Application Server
+-> WAS 서버라고 부른다
+ex) Tomcat
+
+Web Server
+ex) Apache, Nginx
+
+
+Load Balancing: 부하를 분산시켜줌
+n 개의 web 서버를 모니터링한다.
+
+
+Docker - 컨테이너 환경에서 돌 수 있도록 도와주는 프레임워크
+
+
+Hadoop = Data Lake
+(점점 인기가 식어가고 있음)
+정형, 비정형, 반정형 데이터 모두 저장 가능
+자바기반 Map Reduce 구현
+
+Hive 
+
+spark -> Functional Programming
+	func -> func
+ - 병렬/분산 처리 가능
+ 
+
+ Scala언어 -> pyspark, sparkR
+Spache Spark
+- DateBricks(데이터를 만져서 머신러닝 돌리는 언어)
+
+
+
+<mysql 설치>
+sudo apt install mysql-server
+sudo service mysql status
+
+
+<mysql 서버 시작>
+swp@LAPTOP-BTRBRSBB:~/workspace$ sudo service mysql start
+sudo service mysql start[stop/status/restart]
+
+
+<mysql 실행>
+swp@LAPTOP-BTRBRSBB:~/workspace$  sudo mysql -uroot -p
+
+
+sql에서 % = 모든 아이피를 허용하겠다.
+
+mysql, mariaDB = 3306포트를 사용한다
+
+사용자 생성
+
+<mysql 실행시 에러>
+swp@LAPTOP-BTRBRSBB:~/workspace$ mysql -uswp -p
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock'
+소켓오류 
+
+해결: sudo mysql -uswp -p
+
+
+
+
+
+
 
 
