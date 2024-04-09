@@ -386,10 +386,17 @@ swp@LAPTOP-BTRBRSBB:~/workspace$ mysql -uswp -p
 ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock'
 소켓오류 
 
-해결: sudo mysql -uswp -p
+해결1: sudo mysql -uswp -p
+해결2: # mysql 환경파일의 폴더
+cd /etc/mysql/mysql.conf.d
+sudo vim mysqld.cnf 
+bind-address            = 0.0.0.0
 
 
+데이터에서 제일 빠른 기법은 hash
 
+pip install sqlalchemy
+sqlalchemy : ORM(Object Relational Mapping)
 
 
 
