@@ -665,6 +665,7 @@ def get_exchange(code_="USD", date_=None):
 
 
 ----
+
 from datetime import date, datetime
 import requests 
 import pandas as pd 
@@ -780,6 +781,145 @@ unzip ./이름_생년_성별_10000.zip -d ./data
 # 파일 복사 
 import shutil
 shutil.move("./result.csv", "/home/gen2")
+
+
+
+
+
+
+
+2024.04.08
+kbo['초등'] = kbo['경력'].apply(lambda x : x.split("-")[0])
+
+
+
+kbo['생년월일'].apply(lambda x : datetime.strptime(x.strip(), "%Y년 %m월 %d일"))
+
+kbo['생년월일'] = kbo['생년월일'].apply(lambda x : datetime.strptime(x.strip(), "%Y년 %m월 %d일"))
+
+kbo['생존일'] = kbo['생년월일'].apply(lambda x : (datetime.now() - x).days)
+
+kbo.sort_values(by=['생존일', '선수명'], ascending=[False, True])
+
+
+kbo['나이'] = kbo['생년월일'].apply(lambda x : datetime.now().year - x.year)
+
+
+kbo.loc[kbo.team == "고양 히어로즈", 'team']  = '키움 히어로즈'
+
+
+
+매장/서비스 > 매장검색 | 대한민국 대표편의점 GS25 (gsretail.com)
+
+
+
+import requests 
+from bs4 import BeautifulSoup as BS 
+
+r= requests.get("http://gs25.gsretail.com/gscvs/ko/store-services/locations")
+
+bs = BS(r.text)
+
+#<form id="CSRFForm" action="/gscvs/ko/store-services/locations" method="post"><input type="hidden" name="CSRFToken" value="406690e8-0340-4931-b372-4b5519577c3c" />
+bs.find("input", {'name': "CSRFToken"})
+
+
+
+with requests.Session() as s:
+    r = s.get("http://gs25.gsretail.com/gscvs/ko/store-services/locations")
+    bs = BS(r.text)
+    token = bs.find("input", {'name': "CSRFToken"})
+    print(bs.find("input", {'name': "CSRFToken"}))
+    target = f"http://gs25.gsretail.com/gscvs/ko/store-services/locationList?CSRFToken={token}"
+    
+
+
+
+
+
+payload = {"pageNum": "1",
+"pageSize": "5",
+"searchShopName": "",
+"searchSido": "26",
+"searchGugun": "2671",
+"searchDong": "26710310",
+"searchType": "",
+"searchTypeService": "0",
+"searchTypeToto": "0",
+"searchTypeCafe25": "0",
+"searchTypeInstant": "0",
+"searchTypeDrug": "0",
+"searchTypeSelf25": "0",
+"searchTypePost": "0",
+"searchTypeATM": "0",
+"searchTypeWithdrawal": "0",
+"searchTypeTaxrefund": "0",
+"searchTypeSmartAtm": "0",
+"searchTypeSelfCookingUtensils": "0",
+"searchTypeDeliveryService": "0",
+"searchTypeParcelService": "0",
+"searchTypePotatoes": "0",
+"searchTypeCardiacDefi": "0",
+"searchTypeFishShapedBun": "0",}
+with requests.Session() as s:
+    r = s.get("http://gs25.gsretail.com/gscvs/ko/store-services/locations")
+    bs = BS(r.text)
+    token = bs.find("input", {'name': "CSRFToken"})['value']
+    #print(bs.find("input", {'name': "CSRFToken"}))
+    target = f"http://gs25.gsretail.com/gscvs/ko/store-services/locationList?CSRFToken={token}"
+    r2 = s.post(target, data=payload)
+
+
+
+
+pd.DataFrame(eval(r2.json())['results'])
+
+
+
+
+
+payload = {"pageNum": "1",
+"pageSize": "5",
+"searchShopName": "",
+"searchSido": "",
+"searchGugun": "",
+"searchDong": "",
+"searchType": "",
+"searchTypeService": "0",
+"searchTypeToto": "0",
+"searchTypeCafe25": "0",
+"searchTypeInstant": "0",
+"searchTypeDrug": "0",
+"searchTypeSelf25": "0",
+"searchTypePost": "0",
+"searchTypeATM": "0",
+"searchTypeWithdrawal": "0",
+"searchTypeTaxrefund": "0",
+"searchTypeSmartAtm": "0",
+"searchTypeSelfCookingUtensils": "0",
+"searchTypeDeliveryService": "0",
+"searchTypeParcelService": "0",
+"searchTypePotatoes": "0",
+"searchTypeCardiacDefi": "0",
+"searchTypeFishShapedBun": "0",}
+total = []
+with requests.Session() as s:
+    r = s.get("http://gs25.gsretail.com/gscvs/ko/store-services/locations")
+    bs = BS(r.text)
+    token = bs.find("input", {'name': "CSRFToken"})['value']
+    #print(bs.find("input", {'name': "CSRFToken"}))
+    target = f"http://gs25.gsretail.com/gscvs/ko/store-services/locationList?CSRFToken={token}"
+    for x in range(1,3):
+        if x % 10 == 0: print(x)
+        payload['pageNum'] = x 
+        r2 = s.post(target, data=payload)
+        total.append( pd.DataFrame(eval(r2.json())['results']))
+
+
+gs25.reset_index(drop=True, inplace=True)
+
+
+
 
 
 
