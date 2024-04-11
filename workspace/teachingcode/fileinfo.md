@@ -20,4 +20,16 @@
 -  통계 관련 강의자료
 
 
+20240411_1.ipynb
+- cu 크롤링
+
+
+20240411_2.ipynb
+- 편의점 마무리
+- import xml.etree.ElementTree as ET
+- mysql db 파이썬에서 연결
+    - con =pymysql.connect(host='', user='', password='', db='', charset='utf8')
+    - cur = con.cursor()
+ 
+
 
