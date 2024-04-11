@@ -442,12 +442,15 @@ import pymysql
 데이터 분석에서 얘기하는 차원의 저주는 컬럼을 말하며 컬럼이 늘어날때 마다 데이터가 지수 그래프로 늘어나야 한다.
 
 
+# "" -> None 교체 
+df.store_tel = df.store_tel.replace("", None)
+
+# NaN -> None 으로 replace 
+df2 = df.where(pd.notnull(df), None)
 
 
-
-
-
-
+# DB에 확정적으로 입력하기 위한 명령어
+con.commit()
 
 
 
