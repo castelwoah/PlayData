@@ -405,3 +405,71 @@ sqlalchemy : ORM(Object Relational Mapping)
 
 
 
+
+2024.04.11
+<함수 데커레이터>
+파이썬의 특수한 기법들
+
+
+프로그램과 통신하는 모든 프로그램을 api라고 한다.
+인터넷을 통해 전달받은 api를 RESTful API 라고한다.
+
+질적 데이터
+범주형 데이터
+
+label encoding
+a->0
+b->1
+
+onehot encoding
+해당값을 1로 표시하는 인코딩
+
+
+출력값을 ... 쓰지말고 다 보여줘 명령어
+pd.set_option('display.max_rows', None)
+
+
+<판다스 melt() 함수>
+pd.melt(seven_df, id_vars=['company', 'name', 'sido', 'address'])
+id_vars: 기준이되는 컬럼
+
+
+# mysql에 직접 붙는 패키지
+import pymysql
+
+
+데이터 분석에서의 차원은 컬럼을 말한다.
+데이터 분석에서 얘기하는 차원의 저주는 컬럼을 말하며 컬럼이 늘어날때 마다 데이터가 지수 그래프로 늘어나야 한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
