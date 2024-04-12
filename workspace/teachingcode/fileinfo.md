@@ -32,4 +32,8 @@
     - cur = con.cursor()
  
 
+20240408.ipynb
+- groupby
+
+
 
