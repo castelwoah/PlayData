@@ -1,0 +1,46 @@
+ERROR
+root@bruhhh:~# mysql -u root
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket '/var/run/mysqld/mysqld.sock' (2)
+
+SOLUTION(외부 접속 허)
+root@bruhhh:/var/run# cd /etc/mysql/mysql.conf.d/
+root@bruhhh:/etc/mysql/mysql.conf.d# ll
+total 16
+drwxr-xr-x 2 root root 4096 Apr 14 11:58 ./
+drwxr-xr-x 4 root root 4096 Apr 14 11:58 ../
+-rw-r--r-- 1 root root  132 Jun 15  2023 mysql.cnf
+-rw-r--r-- 1 root root 2220 Jun 15  2023 mysqld.cnf
+
+root@bruhhh:/etc/mysql/mysql.conf.d# vim mysqld.cnf
+
+# bind-address            = 127.0.0.1 
+bind-address            = 0.0.0.0
+변경하기
+:wq
+
+mysql 껐다가 다시 실행
+root@bruhhh:/etc/mysql/mysql.conf.d# service mysql status
+ * MySQL is stopped.
+root@bruhhh:/etc/mysql/mysql.conf.d# service mysql start
+ * Starting MySQL database server mysqld                        su: warning: cannot change directory to /nonexistent: No such file or directory
+                                                         [ OK ]
+
+root@bruhhh:/etc/mysql/mysql.conf.d# mysql -u root -p
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> exit;
+
+(해결)
+
+
