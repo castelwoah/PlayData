@@ -435,7 +435,7 @@ wheel==0.42.0
 # 사용했던 명령어 검색 1
 root@bruhhh:~# history | grep mysql
 
-# 사용했던 명령어 검색 1
+# 사용했던 명령어 검색 2
 컨트롤 + R
 
 
