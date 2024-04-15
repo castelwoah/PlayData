@@ -265,6 +265,9 @@ conda dectivate [서버이름] # 가상환경 비활성화
 
 
 
+
+
+
 20240408
 리눅스 명령어
 swp@LAPTOP-BTRBRSBB:~/workspace/남성$ ls -l | grep ^- | wc -l
@@ -284,6 +287,8 @@ ddof 자유도
 
 
 t test: 샘플로 모집단을 예측하고 싶어 만든 것
+
+
 
 
 
@@ -459,11 +464,36 @@ con.commit()
 
 
 
+2024.04.15
+재귀방식 = 스택구조를 가지고 있다
+주의) 파이썬에서는 스택에 자한을 걸어놨다
+
+코루틴방식 = yeild를 만나면 잠시 멈추었다가 시작하는것
+
+Stack: FILO(first in last out)
+
+
+ # jupyter notebook 에서 sql 사용하려면
+ pip install ipython-sql
+
+%load_exit sql
 
 
 
+오류가 뜬다면
+pip install mysqlclient
 
 
+referance
+Merge, join, concatenate and compare — pandas 2.2.2 documentation (pydata.org)
+-> https://pandas.pydata.org/docs/user_guide/merging.html
+
+
+concat()
+
+
+merge()
+RDBMS 에서 
 
 
 
