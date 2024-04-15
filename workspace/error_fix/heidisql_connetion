@@ -5,8 +5,8 @@ Access denied for user ‘root’@’localhost’ (using password:YES)
 
 
 SOLUTION
-root 계정을 사용하고 있어서 그랬던것 같음
-우분투에서 사용자를 생성해서 해보면 해결
+root 계정으로 접속하려고 해서그럼
+mysql에서 사용자계정을 하나 생성해서 그 사용자명으로 접속시 가능
 
 
 
