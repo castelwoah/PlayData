@@ -430,3 +430,14 @@ pytz==2024.1
 setuptools==69.1.0
 six==1.16.0
 wheel==0.42.0
+
+
+# 사용했던 명령어 검색 1
+root@bruhhh:~# history | grep mysql
+
+# 사용했던 명령어 검색 1
+컨트롤 + R
+
+
+
+
