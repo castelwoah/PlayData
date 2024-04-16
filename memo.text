@@ -504,6 +504,10 @@ RDBMS 에서
 # db backup 
 sudo mysqldump -uroot classicmodels > ~/backup.sql
 
+# db 복원 
+mysql -uroot [db명] < ~/backup.sql 
+
+
 > : 기존내용 덮어씌우기
 >> : 기존내용에 추가
 
