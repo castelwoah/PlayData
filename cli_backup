@@ -482,15 +482,21 @@ The key's randomart image is:
 # 윈도우
 C:\Users\amoll>ssh-keygen -t rsa
 
-# 우분투
+# 우분투(공개키)
 swp@bruhhh:~$ cd ~/.ssh
 swp@bruhhh:~/.ssh$ cat id_rsa.pub >> authorized_keys
 swp@bruhhh:~/.ssh$ chmod 600 authorized_keys
 swp@bruhhh:~/.ssh$ vim authorized_keys
-# 윈도우에 있는 공개키 우분투에 복붙
+# 윈도우에 있는 개인키 우분투에 복붙
 
 # 윈도우
 C:\Users\amoll>ssh {id}@{ip}
+
+
+
+
+
+
 
 
 
