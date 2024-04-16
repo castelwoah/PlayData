@@ -500,6 +500,63 @@ RDBMS 에서
 
 
 
+2024.04.16
+# db backup 
+sudo mysqldump -uroot classicmodels > ~/backup.sql
+
+> : 기존내용 덮어씌우기
+>> : 기존내용에 추가
+
+
+
+<개인키와 공개키 설정>
+# 윈도우의 터미널에서 
+ssh-keygen -t rsa
+아무것도 입력하지 말고 그냥 엔터*3
+
+
+1. 윈도우 .ssh 폴더에서 
+2. id_rsa.pub 메모장 열기 -> 내용 복사 
+3. wsl(서버) authorized_key 
+vim authorized_key 
+마지막줄에 복사한 내용 붙여넣기, 저장하기 
+4. 윈도우에서 
+ssh {id}@{ip} 
+
+
+
+<sql>
+substr("문자열", 시작값, 갯수): 특정문자열 뽑아오는 함수
+
+CASE WHEN 조건 THEN 결과 END
+
+DENSE_RANK(): 
+100점	1
+100점	1
+99점	2
+99점	2
+80점	3
+
+
+RANK():
+100점	1
+100점	1
+99점	3
+99점	3
+80점	5
+
+
+서브쿼리
+쿼리 안에 쿼리 넣을 수 있다. () 괄호로 감싸주고 이름을 지정해줘야 한다.
+
+
+
+
+
+
+
+
+
 
 
 
