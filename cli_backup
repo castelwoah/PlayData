@@ -496,7 +496,14 @@ C:\Users\amoll>ssh {id}@{ip}
 
 
 
+---
+2024.04.22
 
+(base) root@bruhhh:~/workspace#
+(base) root@bruhhh:~/workspace# git clone https://github.com/billyrohh/instacart_dataset
+Cloning into 'instacart_dataset'...
+remote: Enumerating objects: 24, done.
+remote: Total 24 (delta 0), reused 0 (delta 0), pack-reused 24
 
 
 
