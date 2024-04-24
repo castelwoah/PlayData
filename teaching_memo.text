@@ -1881,3 +1881,207 @@ git config --global user.name [이름]
 
 cd ~ 
 git clone ssh://ubuntu@3.36.58.92:/home/ubuntu/repos
+
+
+
+
+
+
+---
+
+2024.04.22
+billyrohh/instacart_dataset (github.com)
+
+
+import pandas as pd
+import os, glob
+
+for file in glob.glob("./instacart_dataset/*.csv"):
+    locals()[file.split("/")[-1].split(".")[0]] = pd.read_csv(file)
+    print(file)
+
+
+
+from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, BigInteger, DateTime, Date
+
+
+
+import sqlalchemy
+from urllib import parse
+
+user = 'gen'
+password = '123'
+host='localhost'
+port = 3306
+database = 'encore'
+password = parse.quote_plus(password)
+engine = sqlalchemy.create_engine(f"mysql://{user}:{password}@{host}:{port}/{database}")
+
+
+metadata = MetaData()
+
+
+
+
+table = Table('aisles', metadata, 
+      Column('aisle_id', Integer),
+      Column('aisle', String(100)),
+     )
+metadata.create_all(engine)
+
+
+
+
+# 
+# orders table 
+# 1. 주문 건수 구하기 
+# 2. 구매자 수 구하기 
+# 3. 상품별 주문 건수 
+# - order_products__prior , products 
+
+
+# 계정이 gen일때 password 123(백업)
+mysqldump -ugen -p123 encore > ~/instacart.sql
+
+(복원)
+mysql -ugen -p123 encore < ~/instacart.sql
+
+
+
+# 비밀번호 변경 
+alter user 'gen'@'%' identified by '123';
+
+
+
+
+
+--  1. 주문 건수 구하기 
+SELECT COUNT(DISTINCT order_id) cnt
+FROM orders;
+--  2. 구매자 수 구하기 
+SELECT COUNT(DISTINCT user_id) user_cnt
+FROM orders;
+--  3. 상품별 주문 건수 
+--  order_products__prior , products 
+SELECT B.product_name, COUNT(DISTINCT A.order_id) cnt 
+FROM order_products__prior A
+LEFT JOIN products B 
+ON A.product_id = B.product_id
+GROUP BY 1
+ORDER BY 2 DESC;
+
+
+
+pd.merge(order_products__prior, \
+         products, on='product_id', \
+         how='left').groupby(['product_name'])['order_id'].count().sort_values(ascending=False)
+
+
+
+
+
+--- 
+
+2024.04.23
+https://math100.tistory.com/45
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+t-분포표 
+
+
+
+
+
+import pandas as pd
+import numpy as np
+import scipy as sc 
+
+상반기 = pd.read_csv("./data/상반기 주유소 판매가격.csv",
+                  encoding='cp949')
+하반기 = pd.read_csv("./data/하반기 주유소 판매가격.csv",
+                  encoding='cp949')
+주유소 = pd.concat([상반기, 하반기])
+
+
+주유소[['지역', '상호', '상표']].drop_duplicates().groupby(['지역', '상표'])[['상표']].count()
+
+
+
+집계결과 = 주유소[['지역', '상호', '상표']].drop_duplicates().groupby(['지역',
+                 '상표'])[['상표']].count().rename(columns={'상표' : '집계'}).reset_index()
+
+
+집계결과.sort_values(by=['집계'], 
+                 ascending=False).groupby(['지역']).first()
+
+
+
+주유소_365 = 주유소.groupby(['상호'])['번호'].count()[주유소.groupby(['상호'])['번호'].count() == 365].index
+
+주유소_ = 주유소[~주유소.상호.isin(주유소_365)].copy()
+
+
+주유소_['월'] = 주유소_['기간'].apply(lambda x : str(x)[4:6])
+
+
+
+폐업 = 주유소_[['주소', '월']].drop_duplicates().\
+    groupby(['월'])[['주소']].count()
+
+폐업['현황'] = 폐업.주소 - 폐업.주소.shift(1)
+
+
+폐업.fillna(0).rename(columns={'주소' : '집계', '현황' : "폐업갯수"}).reset_index()
+
+
+강남구  = 주유소_.query(" 지역 == '서울 강남구'")
+도봉구  = 주유소_.query(" 지역 == '서울 도봉구'")
+
+
+
+sc.stats.ttest_ind(a =  강남구.groupby(['상호'])['휘발유'].mean().values,
+                   b =  도봉구.groupby(['상호'])['휘발유'].mean().values)
+
+
+
+----
+테이블 설명 
+aisles, departments는 삼품의 카테고리를 의미 
+order_products__prior는 각 주문 번호의 상세 구매 내역 
+oders는 주문 대표 정보 
+products 상품 정보를 포함 
+
+
+pd.read_sql_query("select * from order_products__prior", con=engine)
+
+
+df['first']= df.add_to_cart_order.apply(lambda x :  1 if x == 1 else 0)
+df2 = df.groupby(['product_id'], as_index=False)[['first']].sum()
+
+
+df3 = df2.sort_values(by=['first'], ascending=False).reset_index(drop=True)
+df3['rank'] = df3['first'].rank(ascending = False)
+df3['rank'] = df3['rank'].astype(int)
+
+
+
+
+SELECT *, 
+ROW_NUMBER() OVER(ORDER BY FIRST DESC) rnk
+FROM 
+(SELECT  product_id,  SUM(CASE WHEN ADD_TO_CART_ORDER = 1 THEN 1 ELSE 0 END) FIRST
+FROM order_products__prior
+GROUP BY 1) A LIMIT 10;
+
