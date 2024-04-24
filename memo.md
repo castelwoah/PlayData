@@ -562,7 +562,12 @@ RANK():
 ---
 # 2024.04.24
 
+인공지능 동의 용어표
+https://realblack0.github.io/2020/03/23/thesaurus.html
 
+
+bert paper
+버트 모델은 자연어처리 알고리즘
 
 
 
