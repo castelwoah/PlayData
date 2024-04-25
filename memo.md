@@ -571,11 +571,25 @@ bert paper
 
 
 
+---
+# 2024.04.25
 
+## 장고 가상환경 구축
 
+## virtualenv 
+ - python module 
+ - 현재 설치된 파이썬 버전을 따라감 
+ - python -m virtualenv venv
+   -> 폴더 생성  (venv)  
+   -> 가상환경 사용하기 
+- source ./venv/bin/activate 
 
+## conda 
+ - anaconda, miniconda를 설치해야 사용 가능 
+ - conda -> 32bit 환경 세팅 가능 
+ - 다양한 버전의 파이썬을 세팅가능 
 
-
+장고는 웹 프레임워크
 
 
 
