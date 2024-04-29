@@ -499,6 +499,8 @@ C:\Users\amoll>ssh {id}@{ip}
 ---
 2024.04.22
 
+# 장고 설치 및 실행
+
 (base) root@bruhhh:~/workspace#
 (base) root@bruhhh:~/workspace# git clone https://github.com/billyrohh/instacart_dataset
 Cloning into 'instacart_dataset'...
@@ -506,7 +508,66 @@ remote: Enumerating objects: 24, done.
 remote: Total 24 (delta 0), reused 0 (delta 0), pack-reused 24
 
 
+---
+2024.04.25
 
+(base) root@bruhhh:~# django-admin
+-bash: django-admin: command not found
+(base) root@bruhhh:~# pip install django
+Collecting django
+  Downloading Django-5.0.4-py3-none-any.whl.metadata (4.1 kB)
+Collecting asgiref<4,>=3.7.0 (from django)
+  Downloading asgiref-3.8.1-py3-none-any.whl.metadata (9.3 kB)
+Collecting sqlparse>=0.3.1 (from django)
+  Downloading sqlparse-0.5.0-py3-none-any.whl.metadata (3.9 kB)
+Requirement already satisfied: typing-extensions>=4 in ./miniconda3/lib/python3.10/site-packages (from asgiref<4,>=3.7.0->django) (4.11.0)
+Downloading Django-5.0.4-py3-none-any.whl (8.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 8.2/8.2 MB 12.3 MB/s eta 0:00:00
+Downloading asgiref-3.8.1-py3-none-any.whl (23 kB)
+Downloading sqlparse-0.5.0-py3-none-any.whl (43 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.0/44.0 kB 3.9 MB/s eta 0:00:00
+Installing collected packages: sqlparse, asgiref, django
+Successfully installed asgiref-3.8.1 django-5.0.4 sqlparse-0.5.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+(base) root@bruhhh:~# django-admin
+
+Type 'django-admin help <subcommand>' for help on a specific subcommand.
+
+Available subcommands:
+
+[django]
+    check
+    compilemessages
+    createcachetable
+    dbshell
+    diffsettings
+    dumpdata
+    flush
+    inspectdb
+    loaddata
+    makemessages
+    makemigrations
+    migrate
+    optimizemigration
+    runserver
+    sendtestemail
+    shell
+    showmigrations
+    sqlflush
+    sqlmigrate
+    sqlsequencereset
+    squashmigrations
+    startapp
+    startproject
+    test
+    testserver
+Note that only Django core commands are listed as settings are not properly configured (error: Requested setting INSTALLED_APPS, but settings are not configured. You must either define the environment variable DJANGO_SETTINGS_MODULE or call settings.configure() before accessing settings.).
+(base) root@bruhhh:~# django-admin startproject mysite
+(base) root@bruhhh:~#
+(base) root@bruhhh:~#
+(base) root@bruhhh:~#
+(base) root@bruhhh:~# ll | grep mysite
+drwxr-xr-x  3 root root      4096 Apr 25 09:09 mysite/
 
 
 
