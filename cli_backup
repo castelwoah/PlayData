@@ -570,4 +570,13 @@ Note that only Django core commands are listed as settings are not properly conf
 drwxr-xr-x  3 root root      4096 Apr 25 09:09 mysite/
 
 
+---
+2024.04.29
+# 파일 갯수 확인
 
+(venv) (base) root@bruhhh:~# ls -l | grep ^- | wc -l
+16
+(venv) (base) root@bruhhh:~# 
+
+# ^ = 맨앞에 문자 형식만 찾아
+# wc 집계
