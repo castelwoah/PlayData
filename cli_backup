@@ -580,3 +580,18 @@ drwxr-xr-x  3 root root      4096 Apr 25 09:09 mysite/
 
 # ^ = 맨앞에 문자 형식만 찾아
 # wc 집계
+
+
+
+---
+2024.05.02
+# ip주소 고정
+
+# window powershell 관리자권한으로 실행후
+
+PS C:\WINDOWS\system32> wsl -l -v
+  NAME            STATE           VERSION
+* Ubuntu-20.04    Running         2
+PS C:\WINDOWS\system32> wsl -d Ubuntu-20.04 -u root ip addr add 192.168.45.250/24 broadcast 192.168.45.255 dev eth0 label eth0:1
+PS C:\WINDOWS\system32>  netsh interface ip add address "vEthernet (WSL)" 192.168.45.100 255.255.255.0
+
