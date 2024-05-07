@@ -2193,7 +2193,10 @@ ORDER BY 3 DESC;
 
 
 
-2024.04.25
+---
+---
+
+# 2024.04.25
 
 # virtualenv 
  - python module 
@@ -2427,7 +2430,10 @@ def results(request, question_id):
 
 
 
-2024.04.26
+---
+---
+
+# 2024.04.26
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_wine
@@ -2788,8 +2794,10 @@ def knn(request):
 
 
 
+---
+---
 
-2024.04.29
+# 2024.04.29
 
 
 
@@ -2959,8 +2967,10 @@ a1 = Answer.objects.get(id=1)
 
 
 
+---
+---
 
-2024.04.30
+# 2024.04.30
 
 
 class Node:
@@ -3010,8 +3020,10 @@ class LinkedList:
 
 
 
+---
+---
 
-2024.05.02
+# 2024.05.02
 
 hflight.groupby(['Origin', 'Dest'], as_index=False)[['DepDelay', 'ArrDelay']].mean()
 
@@ -3148,8 +3160,10 @@ question_list.html
     <p> 없음 </p>
 {% endif %}
 
+---
+---
 
-2024.05.07
+# 2024.05.07
 ssh ubuntu@43.202.5.70
 https://codeshare.io/Q8OYlx
 
