@@ -456,6 +456,7 @@ sudo mysqldump -uroot classicmodels > ~/backup.sql
 (base) root@bruhhh:~/.ssh# cat id_rsa.pub >> authorized_keys
 
 # 우분투
+# 그냥 엔터 * 3
 swp@bruhhh:~$ ssh-keygen -t rsa
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/swp/.ssh/id_rsa):
