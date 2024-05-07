@@ -596,3 +596,50 @@ PS C:\WINDOWS\system32> wsl -l -v
 PS C:\WINDOWS\system32> wsl -d Ubuntu-20.04 -u root ip addr add 192.168.45.250/24 broadcast 192.168.45.255 dev eth0 label eth0:1
 PS C:\WINDOWS\system32>  netsh interface ip add address "vEthernet (WSL)" 192.168.45.100 255.255.255.0
 
+
+
+
+---
+2024.05.07
+# 공개키 설정
+# wsl 작업할 폴더에서
+(base) root@bruhhh:~/workspace# ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /root/.ssh/id_rsa
+Your public key has been saved in /root/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:wk2pN1941CIkmJ9wUsbH+o+YrcCs4oBMSTknlivtR70 root@bruhhh
+The key's randomart image is:
++---[RSA 3072]----+
+|       =+..      |
+|  o   =.o+o  .   |
+| B .   =o+. o .  |
+|o.*  o ++  + .   |
+|.+. . = S.. o    |
+|=. . o + o.o     |
+|o.. . E  +.o     |
+| ... . .o o .    |
+| ....   ..       |
++----[SHA256]-----+
+(base) root@bruhhh:~/workspace#
+
+
+
+(base) root@bruhhh:~/workspace#
+(base) root@bruhhh:~/workspace# cd ~/.ssh
+(base) root@bruhhh:~/.ssh#
+(base) root@bruhhh:~/.ssh#
+(base) root@bruhhh:~/.ssh# ll
+total 20
+drwx------  2 root root 4096 May  7 14:54 ./
+drwx------ 33 root root 4096 May  7 14:49 ../
+-rw-------  1 root root    0 May  7 14:45 authorized_keys
+-rw-------  1 root root 2590 May  7 14:54 id_rsa
+-rw-r--r--  1 root root  565 May  7 14:54 id_rsa.pub
+-rw-r--r--  1 root root  444 May  7 14:41 known_hosts
+(base) root@bruhhh:~/.ssh# cat id_rsa.pub
+(base) root@bruhhh:~/.ssh#
+(base) root@bruhhh:~/.ssh#
