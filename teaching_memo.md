@@ -2085,3 +2085,1126 @@ FROM
 FROM order_products__prior
 GROUP BY 1) A LIMIT 10;
 
+
+
+---
+---
+
+
+2024. 04.24
+
+
+
+Garbage In, Garbage Out 
+
+
+
+첨도와 왜도 
+첨도( kurtosis ) 
+- 확률분포의 뽀족한 정도를 나타내는 값 
+ 
+
+
+왜도 : 
+skewness 
+확률분포의 비대칭을 나타내는 값 
+왜도값이 0인 경우에는 정규분포와 유사 
+
+
+
+EDA 
+목적 
+ - 데이터의 형태와 척도가 분석에 알맞게 되어 있는지... 확인 
+ - 데이터의 평균, 분산, 분포, 패턴 등의 확인을 통해 데이터 특성 파악 
+ - 결측치, 이상치 파악, 보완 
+ - 변수 간의 관계성 파악 
+ - 분석 목적과 방향성 점검 및 보정 
+
+
+
+공분산과 상관분석 
+변수 Y와 변수 X와의 관계 
+
+
+
+
+공분산 
+양의 상관관계 : X_1이 커지면 X_2 커진다. 
+음의 상관관계 : X_1이 커지면 X_2 작아진다. 
+무 상관관계 : X_1, X_2는 선형적인 관계성이 없음 
+
+공분산 값은 100 양수 값을 갖는다면 X, Y의 두 확률 분포가 어느 정도 선형성이 있는지 알수 없다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+상관계수 
+- 공분산의 문제를 해결하는 값으로 -1 ~ 1 사이의 값을 가짐 
+- 공분산을 X의 표준편차, Y의 표준편차 모두로 나눈 값 
+
+
+
+
+
+
+# 시간별 주문 건수 
+SELECT order_hour_of_day,
+COUNT(DISTINCT order_id) result
+FROM orders 
+GROUP BY 1 
+ORDER BY 1;
+
+
+# 첫 구매 후 다음 구매까지 걸린 평균 일수 
+
+SELECT AVG(days_since_prior_order) avg_result
+FROM orders 
+WHERE order_number = 2;
+
+
+
+# 주문 건당 평균 구매 상품 수
+
+SELECT COUNT(product_id) / COUNT(DISTINCT order_id) result
+FROM order_products__prior;
+
+
+
+# 상품별 재구매율 계산, 1~10, 상품명
+
+SELECT A.product_id, B.product_name, A.result
+FROM 
+(SELECT product_id, (SUM(reordered) / COUNT(*)) result
+FROM order_products__prior
+GROUP BY 1) A
+LEFT JOIN products B
+ON A.product_id=B.product_id
+ORDER BY 3 DESC;
+
+
+
+
+2024.04.25
+
+# virtualenv 
+ - python module 
+ - 현재 설치된 파이썬 버전을 따라감 
+ - python -m virtualenv venv
+   -> 폴더 생성  (venv)  
+   -> 가상환경 사용하기 
+       - source ./venv/bin/activate 
+
+# conda 
+ - anaconda, miniconda를 설치해야 사 - 다양한 버전의 파이썬을 세팅가능 
+
+
+# 서버 가동 
+python manage.py runserver 
+# Ctrl + c 
+
+python manage.py migrate
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from django.shortcuts import render
+from django.http import HttpResponse
+# Create your views here.
+
+
+def TellHello(request):
+    html = "<h1> Hi!!!! </h1>"
+    return HttpResponse(html)
+
+
+
+from django.contrib import admin
+from django.urls import path
+from practice import views
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('Hello/', views.TellHello),
+]
+
+
+
+
+from django.db import models
+
+
+# Create your models here.
+
+
+class Question(models.Model):
+    question_text = models.CharField(max_length=200)
+    pub_date = models.DateTimeField('date published')
+
+
+class Choice(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    choice_text = models.CharField(max_length=200)
+    votes = models.IntegerField(default=0)
+
+
+
+
+python manage.py makemigrations 
+
+python manage.py sqlmigrate mypolls 0001
+
+
+python manage.py migrate 
+
+
+
+
+from django.contrib import admin
+from mypolls.models import Question, Choice
+
+
+# Register your models here.
+admin.site.register(Question)
+admin.site.register(Choice)
+
+
+python manage.py createsuperuser
+
+
+pip install mysqlclient 
+
+sudo apt-get install python3-dev default-libmysqlclient-dev build-essential pkg-config
+
+
+settings.py
+
+ 'default' :{
+        'ENGINE' : 'django.db.backends.mysql',
+        'NAME' :'encore',
+        'USER' : 'encore',
+        'PASSWORD' : 'EnCore#@!',
+        'HOST' : "43.203.251.100",
+        'PORT' : 3306
+    }
+
+
+
+
+from django.urls import path
+from mypolls import views
+
+
+
+
+urlpatterns=[
+    path('', views.index)
+]
+
+
+
+
+from sklearn.datasets import fetch_california_housing
+#from sklearn.datasets import load_boston
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import warnings
+
+from sklearn.datasets import fetch_openml
+housing = fetch_openml(name="house_prices", as_frame=True)
+from sklearn.datasets import fetch_openml
+boston = fetch_openml(name="house_prices", as_frame=True)
+
+warnings.filterwarnings(action='ignore')
+
+dataset = pd.DataFrame(boston.data, columns=boston.feature_names)
+dataset['target'] = boston.target
+
+
+
+
+from django.shortcuts import render
+from models import Question, Choice
+
+
+# Create your views here.
+def index(request):
+    latest_question = Question.objects.all().order_by("-pub_date")[:5]
+    context = {"latest_question" : latest_question}
+    return render(request, "polls/index.html", context)
+
+
+
+
+
+
+
+{% if latest_question %}
+    {% for question in latest_question %}
+        <li><a href="/polls/{{ question.id }}">{{ question.question_text }}</a></li>
+    {% endfor %}
+{% else %}
+    <p>No Polls are availiable.</p>
+{% endif %}
+
+
+
+
+urlpatterns=[
+    path('', views.index),
+    path("<int:question_id>/", views.detail),
+]
+
+
+
+
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    {% for choice in question.choice_set.all %}
+    <input type="radio" name="choice" id="choice{{ forloop.counter }}"
+           value="{{ choice.id }}" />
+    <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+    {% endfor %}
+    <input type="submit" value="Vote" />
+</form>
+
+
+
+
+def vote(request, question_id):
+   
+    question = get_object_or_404(Question, pk=question_id)
+    select_choice = question.choice_set.get(pk=request.POST['choice'])
+    select_choice = select_choice + 1
+    select_choice.save()
+    return HttpResponseRedirect('polls:results', args=(question.id))
+
+
+def results(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, 'mypolls/results.html', {'question' : question})
+
+
+
+
+
+
+<h1> {{ question.question_text }}</h1>
+
+
+<ul>
+    {% for choice in question.choice_set.all %}
+    <li>{{ choice.choice_text }} - {{ choice.votes }}</li>
+    {% endfor %}
+</ul>
+
+
+
+
+2024.04.26
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_wine
+
+wine_load = load_wine()
+
+wine = pd.DataFrame(wine_load.data, columns=wine_load.feature_names)
+wine['Class'] = wine_load.target
+
+wine['Class'] = wine['Class'].map({0: 'class_0',  1 : 'class_1', 2 : 'class_2'})
+
+
+import matplotlib.pyplot as plt
+
+plt.boxplot(wine['color_intensity'], whis=1.5)
+plt.title('color_intensity')
+plt.show()
+
+
+
+import numpy as np
+
+def outliers_iqr(dt, col):
+    quartile_1, quartile_3 = np.percentile(dt[col], [25, 75])
+    iqr = quartile_3 - quartile_1
+    lower_whis = quartile_1 - (iqr * 1.5)
+    upper_whis = quartile_3 + (iqr * 1.5)
+    outliers = dt[(dt[col] > upper_whis) | (dt[col] < lower_whis)]
+    return outliers[[col]]
+
+
+
+
+wine_outliers = wine.drop(index=outliers_iqr(wine, 'color_intensity').index)
+
+
+
+
+
+import pandas as pd
+from sklearn.datasets import load_iris
+
+iris = load_iris()
+
+
+
+iris_df = pd.DataFrame(data=iris.data, columns=iris.feature_names)
+iris_df['Class'] = list(map(lambda x : {0 : 'Setosa', 1: 'Versicolour', 2:'Virginica'}[x], iris.target))
+
+
+iris_df['Class'] = pd.Categorical(iris_df['Class'])
+
+
+
+X_train, X_test, y_train, y_test = train_test_split(iris_df.drop(columns='Class'), iris_df['Class'], test_size = 0.2)
+
+
+
+X_train, X_test, y_train, y_test = train_test_split(iris_df.drop(columns='Class'), iris_df['Class'], test_size = 0.2,
+                                                  stratify = iris_df['Class']     )
+
+
+
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+StdScaler = StandardScaler()
+
+# Train 데이터의 fitting과 스케일링
+StdScaler.fit(X_train)
+X_train_sc = StdScaler.transform(X_train)
+# StdScaler.fit_transform(X_train)
+# Test 데이터의 스케일링
+X_test_sc = StdScaler.transform(X_test)
+
+
+print("\t\t(min, max) (mean, std)")
+print("Train_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_train_sc.min(), X_train_sc.max(),  X_train_sc.mean(),  X_train_sc.std()))
+print("Test_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_test_sc.min(), X_test_sc.max(),  X_test_sc.mean(),  X_test_sc.std()))
+
+
+- 표준화 방식 
+- 컬럼들의 평균 0, 표준편차 1 
+- 최솟값, 최댓값 제한 없음 
+- 이상치에 민감 
+- 회귀보다 분류에 유용 
+
+
+
+MmScaler = MinMaxScaler()
+
+# Train 데이터의 fitting과 스케일링
+MmScaler.fit(X_train)
+X_train_sc = MmScaler.transform(X_train)
+
+# Test 데이터의 스케일링
+X_test_sc = MmScaler.transform(X_test)
+
+
+print("\t\t(min, max) (mean, std)")
+print("Train_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_train_sc.min(), X_train_sc.max(),  X_train_sc.mean(),  X_train_sc.std()))
+print("Test_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_test_sc.min(), X_test_sc.max(),  X_test_sc.mean(),  X_test_sc.std()))
+     
+- 컬럼들의 값이 0 ~ 1 사이 
+- 최솟값 : 0 
+- 최댓값 : 1 
+- 이상치 매우 민감 
+- 분류보다 회귀에 유용
+
+
+from sklearn.preprocessing import MaxAbsScaler
+
+MaScaler = MaxAbsScaler()
+
+# Train 데이터의 fitting과 스케일링
+MaScaler.fit(X_train)
+X_train_sc = MaScaler.transform(X_train)
+
+# Test 데이터의 스케일링
+X_test_sc = MaScaler.transform(X_test)
+
+
+print("\t\t(min, max) (mean, std)")
+print("Train_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_train_sc.min(), X_train_sc.max(),  X_train_sc.mean(),  X_train_sc.std()))
+print("Test_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_test_sc.min(), X_test_sc.max(),  X_test_sc.mean(),  X_test_sc.std()))
+
+
+
+from sklearn.preprocessing import MaxAbsScaler
+
+MaScaler = MaxAbsScaler()
+
+# Train 데이터의 fitting과 스케일링
+MaScaler.fit(X_train)
+X_train_sc = MaScaler.transform(X_train)
+
+# Test 데이터의 스케일링
+X_test_sc = MaScaler.transform(X_test)
+
+
+print("\t\t(min, max) (mean, std)")
+print("Train_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_train_sc.min(), X_train_sc.max(),  X_train_sc.mean(),  X_train_sc.std()))
+print("Test_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_test_sc.min(), X_test_sc.max(),  X_test_sc.mean(),  X_test_sc.std()))
+
+
+- 최대 절댓값과 0이 각각 1, 0이 되도록 스케일링
+- 모든 값이 -1 ~ 1 사이에 표현 
+- 데이터가 양수만 있을 경우 Min-Max와 동일 
+- 이상치에 매우 민감 
+- 분류보다 회귀 유용 
+
+
+
+
+
+
+
+from sklearn.preprocessing import RobustScaler
+
+RuScaler = RobustScaler()
+
+# Train 데이터의 fitting과 스케일링
+RuScaler.fit(X_train)
+X_train_sc = RuScaler.transform(X_train)
+
+# Test 데이터의 스케일링
+X_test_sc = RuScaler.transform(X_test)
+
+
+print("\t\t(min, max) (mean, std)")
+print("Train_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_train_sc.min(), X_train_sc.max(),  X_train_sc.mean(),  X_train_sc.std()))
+print("Test_scaled (%.2f, %.2f) (%.2f, %.2f)"%(X_test_sc.min(), X_test_sc.max(),  X_test_sc.mean(),  X_test_sc.std()))
+
+
+
+- 평균과 분산 대신 중앙값과 사분위 값 
+- 중앙값을 0으로 설정 IQR을 사용하여 이상치 영향을 최소화 
+- quantile_range 파라미터로 조정하여 이상치 제어 
+
+
+- 데이터 원복 
+display(pd.DataFrame(X_train_sc).head(3))
+X_Original = RuScaler.inverse_transform(X_train_sc)
+display(pd.DataFrame(X_Original).head(3))
+
+
+
+
+
+# 수치형 데이터만 추출
+features = ['수치형변수1', '수치형변수2']
+x = iris_df.drop(columns = 'Class')
+
+# 수치형 변수 정규화
+from sklearn.preprocessing import StandardScaler
+x = StandardScaler().fit_transform(x)
+
+pd.DataFrame(x).head()
+
+
+from sklearn.decomposition import PCA
+pca = PCA( n_components = 4) 
+pca_fit = pca.fit(x)
+
+print("고유 값 : ", pca.singular_values_)
+print("분산 설명력: ", pca.explained_variance_ratio_)
+
+
+import matplotlib.pyplot as plt
+
+plt.title('Scree Plot')
+plt.xlabel('Number of Components')
+plt.ylabel('Cumulative Explained Variance')
+plt.plot(pca.explained_variance_ratio_ , 'o-')
+plt.show()
+     
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+plt.title('2 component PCA' )
+sns.scatterplot(x = 'pc1', y = 'pc2', hue = iris_df.Class,  data = principal_iris)
+plt.show()
+
+ 
+
+
+
+
+python manage.py startapp restapi
+
+
+settings.py 
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'mypolls.apps.MypollsConfig',
+    'restapi.apps.RestapiConfig',
+]
+
+
+pip install djangorestframework
+
+
+polls -> urls.py
+ path('predict/', include('restapi.urls')),
+
+
+restapi -> urls.py 
+파일 생성 
+
+from django.urls import path
+from restapi import views
+
+
+app_name = 'api'
+
+
+urlpatterns=[
+    path('knn/', views.knn),
+]
+
+
+Restful API 만들기 
+
+
+
+
+from django.shortcuts import render
+import pickle
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+# Create your views here.
+
+
+@api_view(['POST'])
+def knn(request):
+    weight = request.data.get('weight')
+    length = request.data.get('length')
+    print(f"weight -> {weight}, length -> {length}")
+
+
+    return Response({"result" : "작업중"})
+
+
+
+
+
+
+
+
+https://chromewebstore.google.com/detail/talend-api-tester-free-ed/aejoelaoggembcahagimdiliamlcdmfm
+
+
+
+
+
+
+http://127.0.0.1:8000/predict/knn/
+
+
+
+
+
+
+import pickle
+
+with open("./knn_class_model.pk" , "rb" ) as f:
+    model1 = pickle.load(f)
+
+
+import numpy as np
+train_scaled = (np.array([ 11.8,   9.9]) - model1['mean']) / model1['std']
+model1['model'].predict(train_scaled.reshape(1,2))
+
+
+
+
+-----
+pip install numpy 
+pip install scikit-learn
+
+from django.shortcuts import render
+import pickle
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+import numpy as np
+# Create your views here.
+
+
+# 경로 및 파일 명, 확장자 확인 
+with open("./restapi/knn_class_model.pk" , "rb" ) as f:
+    model1 = pickle.load(f)
+
+
+
+
+@api_view(['POST'])
+def knn(request):
+    weight = request.data.get('weight')
+    length = request.data.get('length')
+    print(f"weight -> {weight}, length -> {length}")
+
+
+    train_scaled = (np.array([float(weight), float(length)]) - model1['mean']) / model1['std']
+    if model1['model'].predict(train_scaled.reshape(1,2)).tolist()[0] == 0.0:
+        print('{result: 빙어}')
+        return Response('{result: 빙어}')
+    else:
+        print('{result : 도미}')
+        return Response('{result: 도미}')
+
+
+
+
+
+
+2024.04.29
+
+
+
+django-admin startproject config .
+
+
+python manage.py migrate
+
+
+which python
+which pip
+pip list
+
+
+python manage.py startapp encore
+settings.py에 등록
+
+
+'encore.apps.EncoreConfig'
+
+
+
+
+from django.urls import path
+
+
+from . import views
+
+
+
+
+urlpatterns = [
+    path('', views.index),
+]
+
+
+views.py
+from django.shortcuts import render
+from django.http import HttpResponse
+
+
+# Create your views here.
+
+
+def index(request):
+    return HttpResponse("안녕하세요")
+
+
+
+
+
+
+
+
+
+python manage.py runserver 
+
+http://127.0.0.1:8000/encore/
+
+models.py 
+class Question(models.Model):
+    subject = models.CharField(max_length=200)
+    content = models.TextField()
+    create_date = models.DateTimeField()
+
+    def __str__(self):
+        return self.subject
+
+
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    content = models.TextField()
+    create_date = models.DateTimeField()
+
+    def __str__(self):
+        return self.content 
+
+
+
+
+python manage.py makemigrations 
+
+# sql 문법으로 보고 싶다면..
+
+python manage.py sqlmigrate encore 0001
+
+
+python manage.py shell
+
+# django - shell 편하게...
+pip install django-extensions
+
+
+settings.py
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'encore.apps.EncoreConfig',
+    'django_extensions',
+]
+
+
+pip install ipython
+
+
+python manage.py shell_plus
+
+
+from encore.models import Question, Answer
+from django.utils import timezone
+
+
+q = Question(subject='4월 29일', content='모레는 쉼', create_date=timezone.now())
+
+
+Question.objects.all()
+
+
+for x in range(100):
+q = Question(subject='4월 29일', content='모레는 쉼', create_date=timezone.now())
+            q.save()
+
+
+# 데이터 조회 
+q = Question.objects.get(id=10)
+
+q 
+
+# 수정 
+q.subject = ""
+
+# 저장 
+q.save()
+
+
+q.delete()
+
+
+
+
+
+Answer 
+
+
+q = Question.objects.get(id=2)
+
+
+a = Answer(question=q, content='ㅎㅎㅎㅎㅎ', create_date=timezone.now())
+
+# 저정하기 
+a.save()
+
+
+# q(id=2)로 외래키로 연결된 answer의 값 보기 
+q.answer_set.all()
+
+
+a1 = Answer.objects.get(id=1)
+
+
+
+
+
+
+2024.04.30
+
+
+class Node:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
+
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+
+    def append(self, data):
+        if not self.head:
+            self.head = Node(data)
+            return 
+        current = self.head
+        while current.next:
+            current = current.next 
+        current.next = Node(data)
+
+        
+
+    def print_list(self):
+        current = self.head
+        if self.head:
+            print(self.head.data)
+        while current.next:
+            current = current.next
+            print(current.data)
+
+    def search(self, target):
+        """
+            사용자 찾는 데이터 있으면 True return 
+            없으면 false 
+        """
+        if self.head == None:
+            return False
+        current = self.head 
+        if self.head.data == target:
+            return True 
+        while current.next:
+            if current.data == target:
+                return True 
+            current = current.next
+        return False
+
+
+
+
+2024.05.02
+
+hflight.groupby(['Origin', 'Dest'], as_index=False)[['DepDelay', 'ArrDelay']].mean()
+
+
+tmp2 = hflight[hflight.ArrDelay >= 5].groupby(['Dest'], as_index=False)[['Year']].count() 
+hflight2 = hflight.Dest.isin(tmp2[tmp2.Year >= 2000].Dest)
+
+hfight_2_result = hflight[hflight2].copy()
+
+
+
+
+
+
+
+
+
+SELECT Origin, Dest, round(AVG(DepDelay),2) AS DepDelay , 
+	round(AVG(ArrDelay),2) Arrive_Delay
+FROM hflight 
+GROUP BY Origin, Dest
+
+
+CREATE VIEW hflight2 AS
+SELECT * 
+FROM hflight 
+WHERE Dest IN 
+	(SELECT Dest 
+		FROM (
+			SELECT Dest, COUNT(DAYOFWEEK) cnt
+			FROM hflight
+			WHERE ArrDelay >= 5
+			GROUP BY Dest
+			HAVING cnt >= 2000) a
+	)
+
+
+
+SELECT Dest, COUNT(*) total 
+FROM hflight2 
+GROUP BY Dest;
+
+
+SELECT Dest, COUNT(*) total 
+FROM hflight2
+WHERE Cancelled = 1 
+GROUP BY Dest;
+
+
+SELECT Dest, COUNT(*) total 
+FROM hflight2
+WHERE Diverted = 1 
+GROUP BY Dest;
+
+
+SELECT a.dest, a.total, b.Cancelled, c.Diverted,
+ (a.total - b.Cancelled - c.Diverted) air 
+FROM (SELECT Dest, COUNT(*) total 
+	FROM hflight2 
+	GROUP BY Dest) a
+LEFT JOIN (
+		SELECT Dest, COUNT(*) Cancelled 
+		FROM hflight2
+		WHERE Cancelled = 1 
+		GROUP BY Dest
+	) b 
+ON a.Dest = b.Dest 
+LEFT JOIN (
+		SELECT Dest, COUNT(*) Diverted 
+		FROM hflight2
+		WHERE Diverted = 1 
+		GROUP BY Dest
+)	c
+ON a.Dest=c.Dest;
+
+
+
+wsl -d Ubuntu-22.04 -u root ip addr add 192.168.45.250/24 broadcast 192.168.45.255 dev eth0 label eth0:1
+
+netsh interface ip add address "vEthernet (WSL)" 192.168.45.100 255.255.255.0
+
+
+wsl2 버전 
+
+wsl --set-default-version 2  
+wsl --set-version Ubuntu-22.04 2 
+
+
+
+
+2024.05.03
+all_df.honorific = all_df.honorific.apply(lambda x : x.strip())
+all_df.loc[~all_df.honorific.isin(['Mr', 'Miss', 'Mrs', 'Master']), 'honorific' ] = 'Other'
+
+
+categories = all_df.dtypes[all_df.dtypes == 'object'].index.tolist()
+for cate in categories:
+    le = LabelEncoder()
+    le.fit(all_df[cate])
+    all_df[cate] = le.transform(all_df[cate])
+
+
+vim ~/.bashrc 
+
+
+PROMPT_DIRTRIM=1
+
+
+source ~/.bashrc
+
+
+
+
+
+views.py
+def index(request):
+    question_object = Question.objects.order_by('-create_date')
+    return render(request, 'encore/question_list.html',
+            {'question_list' : question_object}      )
+
+
+
+
+
+question_list.html
+
+{% if question_list %}
+    <ul>
+        {% for question in question_list %}
+            <li>{{ question.subject }}</li>
+        {% endfor %}
+    </ul>
+{% else  %}
+    <p> 없음 </p>
+{% endif %}
+
+
+2024.05.07
+ssh ubuntu@43.202.5.70
+https://codeshare.io/Q8OYlx
+
+
+cd ~/.ssh
+ls 
+
+id_rsa  id_rsa.pub
+
+cat id_rsa.pub 
+
+
+
+
+git clone ssh://ubuntu@43.202.5.70:/home/ubuntu/workspace/repos2
+
+
+
+
+ssh-keygen -t rsa 
+
+
+
+export AIRFLOW_HOME=/home/{여러분계정}/airflow
+예) export AIRFLOW_HOME=/home/gen/airflow
+
+export AIRFLOW_HOME=/root/airflow
+
+vim ~/.bashrc
+
+위에 경로 입력 
+bashrc 저장 하고 나온 뒤에 
+
+source ~/.bashrc 
+# $ 환경변수 
+echo $AIRFLOW_HOME
+
+
+echo $PATH
+-------
+
+AIRFLOW_VERSION=2.8.1
+
+# Extract the version of Python you have installed. If you're currently using a Python version that is not supported by Airflow, you may want to set this manually.
+# See above for supported versions.
+PYTHON_VERSION="$(python3 --version | cut -d " " -f 2 | cut -d "." -f 1-2)"
+
+CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+# For example this would install 2.8.1 with python 3.8: https://raw.githubusercontent.com/apache/airflow/constraints-2.8.1/constraints-3.8.txt
+
+pip install "apache-airflow==${AIRFLOW_VERSION}" --constraint "${CONSTRAINT_URL}"
+------
+
+
+
+
+airflow standalone
+
