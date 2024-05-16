@@ -713,6 +713,14 @@ cron.*                          /var/log/cron.log
 
 
 
+---
+2024.05.16
+# 형태소 분석 툴
+(base) root@bruhhh:~/workspace/teachingcode# pip install konlpy
+
+# 자바설치
+(base) root@bruhhh:~/workspace/teachingcode# apt install openjdk-17-jdk
+
 
 
 
