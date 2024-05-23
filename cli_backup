@@ -763,3 +763,18 @@ encore@web:~$ sudo apt install openjdk-17-jdk
 PS C:\WINDOWS\system32> bcdedit /set hypervisorlaunchtype off
 
 
+
+# vm machine 에서 jupyter 가능하게 만들기
+# 윈도우의 공개키 등록
+(base) encore@inference:~$ vim ~/.ssh/authorized_keys
+# 미니콘다 설치
+(base) encore@inference:~$ wget https://repo.anaconda.com/miniconda/Miniconda3-py310_24.4.0-0-Linux-x86_64.sh
+(base) encore@inference:~$ bash ./Miniconda3-py310_24.4.0-0-Linux-x86_64.sh
+(base) encore@inference:~$ source ~/.bashrc
+(base) encore@inference:~$ jupyter notebook --generate-config
+(base) encore@inference:~$ jupyter-notebook
+
+
+
+
+
