@@ -776,5 +776,8 @@ PS C:\WINDOWS\system32> bcdedit /set hypervisorlaunchtype off
 
 
 
+PS C:\Program Files\Oracle\VirtualBox> bcdedit /set hypervisorlaunchtype off   
+
+
 
 
