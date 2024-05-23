@@ -722,5 +722,9 @@ cron.*                          /var/log/cron.log
 (base) root@bruhhh:~/workspace/teachingcode# apt install openjdk-17-jdk
 
 
+---
+2024.05.23
+# 파워쉘 관리자 권한
+PS C:\WINDOWS\system32> bcdedit /set hypervisorlaunchtype off
 
 
