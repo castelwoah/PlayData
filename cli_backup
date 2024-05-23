@@ -722,6 +722,41 @@ cron.*                          /var/log/cron.log
 (base) root@bruhhh:~/workspace/teachingcode# apt install openjdk-17-jdk
 
 
+
+
+
+
+---
+2024.05.22
+encore@web:~$
+encore@web:~$ cd /etc/netplan
+encore@web:~$
+encore@web:~$ sudo vim 00-installer-config.yaml
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    enp0s3:
+      dhcp4: true
+    enp0s8:
+      addresses: [ip address]
+  version: 2
+encore@web:~$
+encore@web:~$ sudo netplan apply
+encore@web:~$
+encore@web:~$ sudo apt update
+encore@web:~$
+encore@web:~$ sudo apt install wget net-tools git -y
+encore@web:~$
+encore@web:~$ sudo apt install python3-pip -y
+encore@web:~$ sudo apt-get install python3-dev default-libmysqlclient-dev build-essential pkg-config
+encore@web:~$
+encore@web:~$ sudo apt install openjdk-17-jdk
+
+
+
+
+
+
 ---
 2024.05.23
 # 파워쉘 관리자 권한
