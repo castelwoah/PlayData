@@ -687,6 +687,9 @@ Requirement already satisfied: grpcio>=1.8.6 in ./venv/lib/python3.10/site-packa
 Installed kernelspec venv in /root/.local/share/jupyter/kernels/venv
 (venv) (base) root@bruhhh:~/workspace/tmp#
 
+
+
+
 # crontab 로그 활성화
 (venv) (base) root@bruhhh:/etc# cd rsyslog.d/
 (venv) (base) root@bruhhh:/etc/rsyslog.d# ll
@@ -697,6 +700,9 @@ drwxr-xr-x 103 root root 4096 May 13 09:20 ../
 -rw-r--r--   1 root root  255 Jan 19  2021 21-cloudinit.conf
 -rw-r--r--   1 root root 1124 Feb 12  2020 50-default.conf
 (venv) (base) root@bruhhh:/etc/rsyslog.d# vim 50-default.conf
+
+
+
 
 # 활성화
 cron.*                          /var/log/cron.log
