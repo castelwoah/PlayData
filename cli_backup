@@ -787,3 +787,10 @@ PS C:\Program Files\Oracle\VirtualBox> bcdedit /set hypervisorlaunchtype off
 
 
 
+---
+2024.05.30
+# 도커설치
+(base) encore@jupyter:~/workspace$ curl -sSL get.docker.com | sh
+# 도커실행
+(base) encore@jupyter:~/workspace$ sudo systemctl enable --now docker
+(base) encore@jupyter:~/workspace$ sudo service docker status
