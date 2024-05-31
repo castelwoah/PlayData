@@ -807,6 +807,17 @@ PS C:\Program Files\Oracle\VirtualBox> bcdedit /set hypervisorlaunchtype off
 (base) encore@jupyter:~/workspace$ sudo service docker status
 (base) encore@jupyter:~$ docker run -it ubuntu:14.04
 
+# 도커 명령어
+(base) encore@jupyter:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+(base) encore@jupyter:~$ docker ps -a
+CONTAINER ID   IMAGE          COMMAND       CREATED         STATUS                      PORTS     NAMES
+be14560c9454   ubuntu:14.04   "/bin/bash"   3 minutes ago   Exited (0) 35 seconds ago             fervent_euler
+5fab808980a0   ubuntu:14.04   "/bin/bash"   6 minutes ago   Exited (0) 5 minutes ago              quirky_poitras
+2a0472992810   ubuntu:14.04   "/bin/bash"   22 hours ago    Exited (0) 22 hours ago               hungry_goldwasser
+
+
+
 
 
 
