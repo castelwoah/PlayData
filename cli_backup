@@ -794,3 +794,21 @@ PS C:\Program Files\Oracle\VirtualBox> bcdedit /set hypervisorlaunchtype off
 # 도커실행
 (base) encore@jupyter:~/workspace$ sudo systemctl enable --now docker
 (base) encore@jupyter:~/workspace$ sudo service docker status
+
+
+
+
+
+---
+2024.05.31
+# 
+(base) encore@jupyter:~/workspace$ sudo usermod -aG docker encore
+# 도커 상태 확인
+(base) encore@jupyter:~/workspace$ sudo service docker status
+(base) encore@jupyter:~$ docker run -it ubuntu:14.04
+
+
+
+
+
+
