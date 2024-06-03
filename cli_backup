@@ -880,6 +880,13 @@ kafka@broker1:~$ sudo systemctl disable ufw
 # 포트확인 명령어
 kafka@broker1:~$ netstat -nltp
 
+# kafka 다운
+kafka@broker1:~$ wget https://archive.apache.org/dist/kafka/3.2.0/kafka_2.13-3.2.0.tgz
+# 압축해제
+kafka@broker1:~$ tar xvfz kafka_2.13-3.2.0.tgz
+# 이름변경
+kafka@broker1:~$ mv ./kafka_2.13-3.2.0 ./kafka
+
 
 
 
