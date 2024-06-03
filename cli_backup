@@ -887,6 +887,72 @@ kafka@broker1:~$ tar xvfz kafka_2.13-3.2.0.tgz
 # 이름변경
 kafka@broker1:~$ mv ./kafka_2.13-3.2.0 ./kafka
 
+# 환경변수 설정
+kafka@broker1:~/kafka/bin$ vim ~/.bashrc
+######### zookeeper path #########
+ZOOKEEPER_HOME=/home/kafka/kafka
+PATH=$PATH:$ZOOKEEPER_HOME/bin
+export PATH
+
+######### kafka-2.13.0 path #######
+KAFKA_HOME=/home/kafka/kafka
+PATH=$PATH:$KAFKA_HOME/bin
+
+kafka@broker1:~/kafka/config$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kafka/kafka/bin:/home/kafka/kafka/bin:/home/kafka/kafka/bin:/home/kafka/kafka/bin
+
+# 사용자 변경
+kafka@broker1:~/kafka/config$ su encore
+# encore 사용자 환경변수 확인
+(base) encore@broker1:/home/kafka/kafka/config$ cat ~/.bashrc | grep JAVA_HOME
+# 복사해서 붙여넣기
+kafka@broker1:~/kafka/config$ vim ~/.bashrc
+kafka@broker1:~/kafka/config$ source ~/.bashrc
+
+
+kafka@broker1:~/kafka/config$ cd ~/kafka/config/
+# 다음 내용 입력
+kafka@broker1:~/kafka/config$ vim zookeeper.properties
+initLimit=20
+syncLimit=5
+server.1=broker1:2888:3888
+server.2=broker2:2888:3888
+server.3=broker3:2888:3888
+# 다음 내용 입력
+kafka@broker1:/usr/lib/systemd/system$ vim ~/kafka/config/server.properties
+139 delete.topic.enable = true
+
+
+
+# 시스템 실행시 실행시켜라 적용과 동시에 실행
+kafka@broker1:/usr/lib/systemd/system$ sudo systemctl enable --now zookeeper              
+
+# 다음 내용 입력
+kafka@broker1:/usr/lib/systemd/system$ sudo vim ./kafka.service
+[Unit]
+Description=Kafka 3.2 Service
+Requires=zookeeper.service
+After=zookeeper.service
+
+[Service]
+Type=simple
+User=kafka
+Group=kafka
+Environment=JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ExecStart=/home/kafka/kafka/bin/kafka-server-start.sh /home/kafka/kafka/config/server.properties
+ExecStop=/home/kafka/kafka/bin/kafka-server-stop.sh
+
+[Install]
+WantedBy=multi-user.target
+
+
+kafka@broker1:/usr/lib/systemd/system$ sudo systemctl enable --now kafka
+kafka@broker1:/usr/lib/systemd/system$ sudo systemctl status kafka
+
+
+# 로그 확인 명령어
+kafka@broker1:/usr/lib/systemd/system$ sudo journalctl -xe
+
 
 
 
