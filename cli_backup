@@ -866,5 +866,22 @@ encore   pts/0    192.168.56.1     03:30    1.00s  0.09s  0.01s sshd: encore [pr
 kafka    pts/1    127.0.0.1        03:39    1.00s  0.00s  0.00s w
 
 
+# 주소변경
+kafka@broker1:~$ sudo vim /etc/netplan/00-installer-config.yaml
+# 확인
+kafka@broker1:~$ ping broker1
+
+# 방화벽 상태확인
+kafka@broker1:~$ sudo service ufw status
+
+# 방화벽 다운
+kafka@broker1:~$ sudo systemctl disable ufw
+
+# 포트확인 명령어
+kafka@broker1:~$ netstat -nltp
+
+
+
+
 
 
