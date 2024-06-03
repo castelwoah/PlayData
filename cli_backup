@@ -820,6 +820,51 @@ be14560c9454   ubuntu:14.04   "/bin/bash"   3 minutes ago   Exited (0) 35 second
 
 
 
+---
+2024.06.03
+
+# 가상머신 복제후
+# 사용자 생성
+(base) encore@jupyter:~$ sudo adduser kafka
+# 사용자 권한 부여
+(base) encore@jupyter:~$ sudo visudo
+
+root    ALL=(ALL:ALL) ALL
+kafka   ALL=(ALL:ALL) ALL
+(입력)
+
+# 사용자 변경
+(base) encore@jupyter:~$ su kafka
+
+# 
+kafka@jupyter:/home/encore$ cat /etc/hosts
+127.0.0.1 localhost
+127.0.1.1 class5
+
+# The following lines are desirable for IPv6 capable hosts
+::1     ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcastprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+# 공개키 생성
+kafka@jupyter:/home/encore$ ssh-keygen -t rsa
+kafka@jupyter:/home/encore$ cat id_rsa.pub >> authorized_keys
+# 파일 권한 변경
+kafka@jupyter:/home/encore$ chmod 600 authorized_keys
+
+# 개인장비에 연결해보기
+kafka@jupyter:/home/encore$ ssh localhost
+
+
+# 현제 접속되어있는 프로세스 보는 명령어
+kafka@jupyter:~$ w
+ 03:39:26 up 9 min,  2 users,  load average: 0.07, 0.05, 0.00
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+encore   pts/0    192.168.56.1     03:30    1.00s  0.09s  0.01s sshd: encore [priv]
+kafka    pts/1    127.0.0.1        03:39    1.00s  0.00s  0.00s w
+
 
 
 
