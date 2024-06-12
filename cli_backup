@@ -970,3 +970,16 @@ kafka@broker1:/usr/lib/systemd/system$ sudo journalctl -xe
 
 
 
+
+
+---
+2024.06.12
+
+
+
+
+
+
+
+
+
