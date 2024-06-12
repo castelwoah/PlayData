@@ -885,6 +885,9 @@ kafka@broker1:~$ sudo service ufw status
 
 # 방화벽 다운
 kafka@broker1:~$ sudo systemctl disable ufw
+kafka@broker1:~$ sudo systemctl stop ufw
+-> kafka@broker1:~$ sudo systemctl disable --now ufw
+
 
 # 포트확인 명령어
 kafka@broker1:~$ netstat -nltp
