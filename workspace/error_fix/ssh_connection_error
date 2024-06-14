@@ -1,0 +1,16 @@
+# 에러 내용
+kafka@producer:~$ ssh broker1
+kex_exchange_identification: read: Connection reset by peer
+Connection reset by x.x.0.202 port 22
+
+
+
+# 해결법
+
+
+
+
+
+
+
+
