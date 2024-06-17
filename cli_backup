@@ -973,7 +973,22 @@ kafka@broker1:/usr/lib/systemd/system$ sudo journalctl -xe
 
 
 ---
-2024.06.12
+2024.06.17
+
+# jupyter 비번 생성
+(base) hadoop@producer:~/.jupyter$ ipython
+Python 3.10.14 (main, May  6 2024, 19:42:50) [GCC 11.2.0]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 8.25.0 -- An enhanced Interactive Python. Type '?' for help.
+
+In [1]: from jupyter_server.auth import passwd
+
+In [2]: passwd()
+Enter password:
+Verify password:
+Out[2]: 'argon2:$argon2id$v=19$m=10240,t=10,p=8$64ylAKJu+CdzTVtvkLyB+A$+ZaJ3CKehJl69fnA0hSmB4/0zi9cCe7c4tKBS04TZJw'
+
+In [3]: exit
 
 
 
